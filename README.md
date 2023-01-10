@@ -35,7 +35,7 @@ kubectl label nodes <your-node-name> demo_scenario_2=balance-resource
 `Kubernetes Secrets` can store and manage sensitive information. For this example we will define a password for the
 `root` user of the `MySQL` server using the `Opaque` secret type. For more info: https://kubernetes.io/docs/concepts/configuration/secret/
 
-## Yaml Config
+## Yaml Config 
 In `flaskapp-deployment.yml` find `spec:` append:
 ```yaml
 spec:
@@ -91,7 +91,7 @@ Get the secrets, persistent volume in place and apply the deployments for the My
 
 You can check the status of the pods, services and deployments.
 
-## Turbonomic Optimize Kubernetes Action
+## Turbonomic Optimize Kubernetes Cluster Action
 
 ### Over-Provision Optimize Action
 <img width="1380" alt="截圖 2022-09-05 上午11 09 32" src="https://user-images.githubusercontent.com/58331502/211477339-4afb9b92-2630-4138-849c-a73dd5494414.png">
