@@ -19,7 +19,7 @@ spec:
         demo_scenario_2: balance-resource
       containers:
         - name: flaskapi
-          image: icr.io/intvwee-ns/flask-api:latest
+          image: icr.io/<namespace>/<image_name:tag>
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
