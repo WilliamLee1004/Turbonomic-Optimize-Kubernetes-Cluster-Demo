@@ -1,7 +1,7 @@
 # Turbonomic-Optimize-Kubernetes-Cluster-Demo
 Two Scneario to optimize Kubernetes cluster resource 
 
-# Background Intro
+## Background Intro
 Over-provision problems and too many action that are difficult to manage are often encountered in customer’s K8s environments
 
 In order to quickly reproduce this same scenario in our environment
@@ -16,19 +16,20 @@ Turbonomic detects that one of the Nodes is running out of Resource and suggests
 
 ## Pre-Requirement
 1. Install [IBM Cloud CLI](https://cloud.ibm.com/docs/containers?topic=containers-cs_cli_install)
-
 2. Install [Docker CLI](https://docs.docker.com/engine/installation/)
+3. Create a IKS Cluster
+4. Create a Turbonomic platform
 
-3. Build image
-
+## Getting started
+1. Clone the repository
+2. Pull the latest mysql image from `Dockerhub`: `Docker pull mysql`
+3. Build a kubernetes-api image with the Dockerfile in this repo: `Docker build . -t flask-api`
 4. [Push image to IBM Cloud Container Registry](https://cloud.ibm.com/registry/start)
+5. [Install Turbonomic Platform Operator on IKS cluster](https://github.com/turbonomic/t8c-install) 
 
-5. Create a IKS Cluster
-
-6. Create a Turbonomic platform
-
-7. [Install Turbonomic Platform Operator on IKS cluster](https://github.com/turbonomic/t8c-install) 
-
+## Secrets
+`Kubernetes Secrets` can store and manage sensitive information. For this example we will define a password for the
+`root` user of the `MySQL` server using the `Opaque` secret type. For more info: https://kubernetes.io/docs/concepts/configuration/secret/
 
 ## Deployments
 Get the secrets, persistent volume in place and apply the deployments for the MySQL database and Flask API
