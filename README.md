@@ -1,2 +1,15 @@
 # Turbonomic-Optimize-Kubernetes-Cluster-Demo
 Two Scneario to optimize Kubernetes cluster resource 
+
+# Background Intro
+Over-provision problems and too many action that are difficult to manage are often encountered in customer’s K8s environments
+
+In order to quickly reproduce this same scenario in our environment
+So I created a Python Flask API, packaged it as an image and put it on icr (IBM Cloud Container Registry) and deployed it to IKS.
+Then I tweaked it for Yaml so that I could quickly reproduce the over-provisioning and resource balance scenarios in K8s and Turbonomic environments.
+
+Over-Provision scenario :
+Turbonomic detects that a Pod has requested too much Resource in advance, but actually uses less than 0.1% of it, and then gives an action to suggest that the Pod Resource be downgraded.
+
+Resource Balance scenario :
+Turbonomic detects that one of the Nodes is running out of Resource and suggests to move some of the Pods to other Nodes to balance the Resource usage of each Node.
