@@ -2,11 +2,11 @@
 Two Scneario to optimize Kubernetes cluster resource 
 
 ## Background Intro
-Over-provision problems and too many action that are difficult to manage are often encountered in customer’s K8s environments
+Over-provision problems are often encountered in customer’s K8s environments
 
 In order to quickly reproduce this same scenario in our environment
 So I created a Python Flask API, packaged it as an image and put it on icr (IBM Cloud Container Registry) and deployed it to IKS.
-Then I tweaked it for Yaml so that I could quickly reproduce the over-provisioning and resource balance scenarios in K8s and Turbonomic environments.
+Then I tweaked it for Yaml so that I could quickly reproduce the over-provisioning and resource balance scenarios on K8s and Turbonomic environments.
 
 1. Over-Provision scenario :
 Turbonomic detects that a Pod has requested too much Resource in advance, but actually uses less than 0.1% of it, and then gives an action to suggest that the Pod Resource be downgraded.
@@ -26,6 +26,10 @@ Turbonomic detects that one of the Nodes is running out of Resource and suggests
 3. Build a kubernetes-api image with the Dockerfile in this repo: `Docker build . -t flask-api`
 4. [Push image to IBM Cloud Container Registry](https://cloud.ibm.com/registry/start)
 5. [Install Turbonomic Platform Operator on IKS cluster](https://github.com/turbonomic/t8c-install) 
+6. Choose one of your nodes, and add a label to it:
+```bash
+kubectl label nodes <your-node-name> demo_scenario_2=balance-resource
+```
 
 ## Secrets
 `Kubernetes Secrets` can store and manage sensitive information. For this example we will define a password for the
@@ -33,6 +37,14 @@ Turbonomic detects that one of the Nodes is running out of Resource and suggests
 
 ## Yaml Config
 In `flaskapp-deployment.yml` find `spec:` append:
+```yaml
+spec:
+  nodeSelector:
+    demo_scenario_2: balance-resource
+```
+
+and
+
 ```yaml
 resources:
   requests:
@@ -45,27 +57,29 @@ resources:
 after appended the yaml `spec:` will like this:
 ```yaml
 spec:
-      containers:
-        - name: flaskapi
-          image: icr.io/<namespace>/<image_name:tag>
-          resources:
-            requests:
-              memory: "1024Mi"
-              cpu: "1"
-            limits:
-              memory: "2048Mi"
-              cpu: "2"
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 5000
-          env:
-            - name: db_root_password
-              valueFrom:
-                secretKeyRef:
-                  name: flaskapi-secrets
-                  key: db_root_password
-            - name: db_name
-              value: flaskapi
+  nodeSelector:
+    demo_scenario_2: balance-resource
+  containers:
+    - name: flaskapi
+      image: icr.io/<namespace>/<image_name:tag>
+      resources:
+        requests:
+          memory: "1024Mi"
+          cpu: "1"
+        limits:
+          memory: "2048Mi"
+          cpu: "2"
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 5000
+      env:
+        - name: db_root_password
+          valueFrom:
+            secretKeyRef:
+              name: flaskapi-secrets
+              key: db_root_password
+        - name: db_name
+          value: flaskapi
 ```
 
 ## Deployments
@@ -92,3 +106,5 @@ You can check the status of the pods, services and deployments.
 
 <img width="423" alt="圖片 1" src="https://user-images.githubusercontent.com/58331502/211479139-70f97f77-7fc2-4ca3-9e2f-35abab518a94.png">
 
+## Take Away
+From the result, we know that Turbonomic can solve Over-provision problems and automatically balance resource usage per node on K8s cluster.
