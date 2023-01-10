@@ -27,4 +27,4 @@ Turbonomic detects that one of the Nodes is running out of Resource and suggests
 
 6. Create a Turbonomic platform
 
-7. [Install Turbonomic Platform Operator on IKS cluster] (https://github.com/turbonomic/t8c-install) 
+7. [Install Turbonomic Platform Operator on IKS cluster](https://github.com/turbonomic/t8c-install) 
