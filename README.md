@@ -106,5 +106,7 @@ You can check the status of the pods, services and deployments.
 
 <img width="423" alt="圖片 1" src="https://user-images.githubusercontent.com/58331502/211479139-70f97f77-7fc2-4ca3-9e2f-35abab518a94.png">
 
-## Take Away
+## Conclusion
 From the result, we know that Turbonomic can solve Over-provision problems and automatically balance resource usage per node on K8s cluster.
+
+In addition, we can specify how many resources a pod or cotainer needs by request and limit, and finally deploy them to one of the nodes with Node label and selector to quickly reproduce the Over-provisioning problem and the problem of insufficient resources on a node that needs to be rebalanced.
