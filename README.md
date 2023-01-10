@@ -28,3 +28,13 @@ Turbonomic detects that one of the Nodes is running out of Resource and suggests
 6. Create a Turbonomic platform
 
 7. [Install Turbonomic Platform Operator on IKS cluster](https://github.com/turbonomic/t8c-install) 
+
+
+## Deployments
+Get the secrets, persistent volume in place and apply the deployments for the MySQL database and Flask API
+
+1. Add the secrets to your kubernetes cluster: `kubectl apply -f flaskapi-secrets.yml`
+2. Create the MySQL deployment: `kubectl apply -f mysql-deployment.yml`
+3. Create the Flask API deployment: `kubectl apply -f flaskapp-deployment.yml`
+
+You can check the status of the pods, services and deployments.
