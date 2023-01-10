@@ -1,0 +1,22 @@
+kubectl run -it --rm --image=mysql --restart=Never mysql-client -- mysql --host mysql --password=test
+
+CREATE DATABASE flaskapi;
+USE flaskapi;
+CREATE TABLE users(user_id INT PRIMARY KEY AUTO_INCREMENT, user_name VARCHAR(255), user_email VARCHAR(255), user_password VARCHAR(255));
+
+INSERT INTO users
+(user_name, user_email, user_password)
+VALUES
+("William", "william@ibm.com", 'password');
+
+select * from users;
+
+curl -H "Content-Type: application/json" -d '{"name": "test1", "email": "test1@test.com", "pwd": "test1"}' http://169.56.21.212:31574/create
+
+add a user: curl -H "Content-Type: application/json" -d '{"name": "<user_name>", "email": "<user_email>", "pwd": "<user_password>"}' http://169.56.21.212:31574/create
+
+home page: curl http://169.56.21.212:31574
+get all users: curl http://169.56.21.212:31574/users
+get information of a specific user: curl http://169.56.21.212:31574/user/<user_id>
+delete a user by user_id: curl -H "Content-Type: application/json" http://169.56.21.212:31574/delete/<user_id>
+update a user's information: curl -H "Content-Type: application/json" -d {"name": "<user_name>", "email": "<user_email>", "pwd": "<user_password>", "user_id": <user_id>} http://169.56.21.212:31574/update
