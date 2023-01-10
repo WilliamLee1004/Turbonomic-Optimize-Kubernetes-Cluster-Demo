@@ -19,7 +19,7 @@ spec:
         demo_scenario_2: balance-resource
       containers:
       - name: mysql
-        image: icr.io/intvwee-ns/mysql:latest
+        image: icr.io/<namespace>/<image_name:tag>
         imagePullPolicy: IfNotPresent
         env:
         - name: MYSQL_ROOT_PASSWORD
