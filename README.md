@@ -31,6 +31,43 @@ Turbonomic detects that one of the Nodes is running out of Resource and suggests
 `Kubernetes Secrets` can store and manage sensitive information. For this example we will define a password for the
 `root` user of the `MySQL` server using the `Opaque` secret type. For more info: https://kubernetes.io/docs/concepts/configuration/secret/
 
+## Yaml Config
+In `flaskapp-deployment.yml` find `spec:` append:
+```yaml
+resources:
+  requests:
+    memory: "1024Mi"
+    cpu: "1"
+  limits:
+    memory: "2048Mi"
+    cpu: "2"
+```
+after appended the yaml `spec:` will like this:
+```yaml
+spec:
+      containers:
+        - name: flaskapi
+          image: icr.io/<namespace>/<image_name:tag>
+          resources:
+            requests:
+              memory: "1024Mi"
+              cpu: "1"
+            limits:
+              memory: "2048Mi"
+              cpu: "2"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          env:
+            - name: db_root_password
+              valueFrom:
+                secretKeyRef:
+                  name: flaskapi-secrets
+                  key: db_root_password
+            - name: db_name
+              value: flaskapi
+```
+
 ## Deployments
 Get the secrets, persistent volume in place and apply the deployments for the MySQL database and Flask API
 
