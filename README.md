@@ -13,3 +13,18 @@ Turbonomic detects that a Pod has requested too much Resource in advance, but ac
 
 Resource Balance scenario :
 Turbonomic detects that one of the Nodes is running out of Resource and suggests to move some of the Pods to other Nodes to balance the Resource usage of each Node.
+
+##Pre-Requirement
+1. Install [IBM Cloud CLI](https://cloud.ibm.com/docs/containers?topic=containers-cs_cli_install)
+
+2. Install [Docker CLI](https://docs.docker.com/engine/installation/)
+
+3. Build image
+
+4. [Push image to IBM Cloud Container Registry](https://cloud.ibm.com/registry/start)
+
+5. Create a IKS Cluster
+
+6. Create a Turbonomic platform
+
+7. [Install Turbonomic Platform Operator] (https://github.com/turbonomic/t8c-install) on IKS cluster
