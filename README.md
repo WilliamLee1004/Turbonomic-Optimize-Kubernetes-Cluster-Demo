@@ -54,6 +54,18 @@ resources:
     memory: "2048Mi"
     cpu: "2"
 ```
+
+(Optional) If you want use instana trace, you need find `spec:` in `flaskapp-deployment.yml` append:
+
+
+```yaml
+- name: INSTANA_AGENT_HOST
+  valueFrom:
+    fieldRef:
+      fieldPath: status.hostIP
+```
+
+
 after appended the yaml `spec:` will like this:
 ```yaml
 spec:
@@ -80,6 +92,10 @@ spec:
               key: db_root_password
         - name: db_name
           value: flaskapi
+        - name: INSTANA_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
 ```
 
 ## Deployments
