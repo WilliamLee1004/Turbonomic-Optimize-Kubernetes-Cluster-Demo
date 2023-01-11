@@ -1,5 +1,6 @@
 # Turbonomic-Optimize-Kubernetes-Cluster-Demo
 Two Scneario to optimize Kubernetes cluster resource 
+Two Scnearios for Turbonomic to optimize Kubernetes cluster resources
 
 ## Background Intro
 Over-provision problems are often encountered in customer’s K8s environments
